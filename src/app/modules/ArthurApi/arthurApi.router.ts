@@ -5,6 +5,8 @@ const router = express.Router();
 
 router.get("/arthur", ArthurApiController.getArthurOAuth);
 router.get("/arthur-properties", ArthurApiController.syncArthurProperties);
+router.get("/get-properties", ArthurApiController.getAllProperties);
+
 // router.get("/arthur-properties", ArthurApiController.getArthurProperties);
 
 router.post("/token", ArthurApiController.getAccessToken);

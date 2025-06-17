@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, RequestHandler, Response } from "express";
 import catchAsync from "../../../utils/catchAsync";
 import { ArthurApiService } from "./arthurApi.service";
 import sendResponse from "../../../utils/sendResponse";
@@ -43,6 +43,18 @@ const syncArthurProperties = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getAllProperties: RequestHandler = catchAsync(async (req, res) => {
+  const result = await ArthurApiService.getAllPropertiesFromDB(req.query);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Properties are retrieved successfully",
+    meta: result.meta,
+    data: result.result,
+  });
+});
+
 // const getArthurProperties = catchAsync(async (req: Request, res: Response) => {
 //   const result = await ArthurApiService.getArthurProperties();
 
@@ -58,5 +70,6 @@ export const ArthurApiController = {
   getArthurOAuth,
   getAccessToken,
   syncArthurProperties,
+  getAllProperties,
   // getArthurProperties,
 };

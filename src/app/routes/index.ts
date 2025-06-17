@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { UserRoutes } from "../modules/user/user.route";
-import { PaymentRoutes } from "../modules/Payment/payment.router";
 import { ArthurApiRoutes } from "../modules/ArthurApi/arthurApi.router";
+import { PropertyRoutes } from "../modules/Properties/properties.router";
 
 const router = Router();
 
@@ -11,12 +11,12 @@ const moduleRoutes = [
     route: UserRoutes,
   },
   {
-    path: "/payments",
-    route: PaymentRoutes,
-  },
-  {
     path: "/auth",
     route: ArthurApiRoutes,
+  },
+  {
+    path: "/properties",
+    route: PropertyRoutes,
   },
 ];
 

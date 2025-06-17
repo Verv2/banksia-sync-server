@@ -1,4 +1,6 @@
+import QueryBuilder from "../../builder/QueryBuilder";
 import config from "../../config";
+import { propertySearchableFields } from "./arthurApi.constant";
 import { TArthurToken } from "./arthurApi.interface";
 import { ArthurToken, Property } from "./arthurApi.model";
 
@@ -191,9 +193,27 @@ export const syncArthurProperties = async () => {
   };
 };
 
+const getAllPropertiesFromDB = async (query: Record<string, unknown>) => {
+  const propertyQuery = new QueryBuilder(Property.find(), query)
+    .search(propertySearchableFields)
+    .filter()
+    .sort()
+    .paginate()
+    .fields();
+
+  const meta = await propertyQuery.countTotal();
+  const result = await propertyQuery.modelQuery;
+
+  return {
+    meta,
+    result,
+  };
+};
+
 export const ArthurApiService = {
   getArthurOAuthUrl,
   getAccessToken,
   syncArthurProperties,
+  getAllPropertiesFromDB,
   // getArthurProperties,
 };
